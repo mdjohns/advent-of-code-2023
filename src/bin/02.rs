@@ -66,6 +66,10 @@ impl Game {
 
         Self { id, cube_count }
     }
+
+    fn cube_power(&self) -> u32 {
+        self.cube_count.values().product()
+    }
 }
 
 pub fn part_one(input: &str) -> Option<u32> {
@@ -95,7 +99,12 @@ pub fn part_one(input: &str) -> Option<u32> {
 }
 
 pub fn part_two(input: &str) -> Option<u32> {
-    None
+    Some(
+        input
+            .lines()
+            .map(|line| Game::from_line(line).cube_power())
+            .sum(),
+    )
 }
 
 #[cfg(test)]
@@ -124,6 +133,6 @@ mod tests {
     #[test]
     fn test_part_two() {
         let result = part_two(&advent_of_code::template::read_file("examples", DAY));
-        assert_eq!(result, None);
+        assert_eq!(result, Some(2286));
     }
 }
